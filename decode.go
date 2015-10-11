@@ -130,9 +130,7 @@ func decodeStruct(v reflect.Value, x interface{}) {
 	for k, c := range getNode(x) {
 		if f, ok := findField(v, k); !ok && k == "" {
 			panic(getString(x) + " cannot be decoded as " + t.String())
-		} else if !f.CanSet() {
-			panic(k + " cannot be set in " + t.String())
-		} else {
+		} else if f.CanSet() {
 			decodeValue(f, c)
 		}
 	}
